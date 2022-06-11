@@ -1,5 +1,7 @@
 # Projeto Memória Virtual
 Atividade da cadeira de Infraestrutura de Software com o objetivo de simular uma memória virtual.<br />
+Foi implemtentado no sistema operacional Linux. Com apenas 1 arquivo de codificaç, o main.c<br />
+Nele ainda existem mais 4 arquivos: o addresses.txt o BACKING_STORE.bin e o README.md e o Makefile<br />
 O programa vai ler de um arquivo.txt números e transformá-los em binário para que possam ser acessados <br />
 os endereços de localização na memoria secundária(nesse caso, tambem um arquivo, o "BACKING_STORE.bin").<br />
 Assim, o programa tem o número da página que deve ser acessada e o offset, para encontrar o valor correspondente<br />
