@@ -45,6 +45,7 @@ int main(int agrc, char *argv[]) {
     strcpy(algorithm_tlb,argv[3]);
 
     FILE *fp, *fp_backstore;
+    FILE *fp_correct_txt = fopen("correct.txt", "a");
     int PAGE_SIZE = 256, PAGE_TABLE_SIZE = 256, FIS_MEM_SIZE = 128, TLB_SIZE = 16;
     char str_adress[7];
     int dec_adress;
@@ -142,7 +143,7 @@ int main(int agrc, char *argv[]) {
                     //procurar na memoria
                     end_value = mem_fis[tlb[index_tlb].index_mem_fis].total_page[int_offset];
                     physical_adress = tlb[index_tlb].index_mem_fis * PAGE_SIZE + int_offset;
-                    printf("Virtual address: %d Physical address: %d Value: %d\n", virtual_adress, physical_adress, end_value);
+                    fprintf(fp_correct_txt,"Virtual address: %d Physical address: %d Value: %d\n", virtual_adress, physical_adress, end_value);
                     tlb_hit++;
                     cont_non_page_fault++;
                     
@@ -155,7 +156,7 @@ int main(int agrc, char *argv[]) {
                         //procurar página na memoria fisica 
                         end_value = mem_fis[page_table[int_num_page].index_mem_fis].total_page[int_offset];
                         physical_adress = page_table[int_num_page].index_mem_fis * PAGE_SIZE + int_offset;
-                        printf("Virtual address: %d Physical address: %d Value: %d\n", virtual_adress, physical_adress, end_value);
+                        fprintf(fp_correct_txt,"Virtual address: %d Physical address: %d Value: %d\n", virtual_adress, physical_adress, end_value);
 
                         // atualizar a tlb 
                         tlb[cont_tlb % TLB_SIZE].bit_sinal = 1;
@@ -181,7 +182,7 @@ int main(int agrc, char *argv[]) {
                             page_table[int_num_page].index_mem_fis = cont_mem_fis;
                             end_value = mem_fis[page_table[int_num_page].index_mem_fis].total_page[int_offset];
                             physical_adress = page_table[int_num_page].index_mem_fis * PAGE_SIZE + int_offset;
-                            printf("Virtual address: %d Physical address: %d Value: %d\n", virtual_adress, physical_adress, end_value);
+                            fprintf(fp_correct_txt,"Virtual address: %d Physical address: %d Value: %d\n", virtual_adress, physical_adress, end_value);
                             tlb[cont_tlb % TLB_SIZE].bit_sinal = 1;
                             tlb[cont_tlb % TLB_SIZE].index_mem_fis = page_table[int_num_page].index_mem_fis;
                             tlb[cont_tlb % TLB_SIZE].num_pag = int_num_page;
@@ -219,7 +220,7 @@ int main(int agrc, char *argv[]) {
                             page_table[int_num_page].index_mem_fis = cont_mem_fis % FIS_MEM_SIZE;
                             end_value = mem_fis[page_table[int_num_page].index_mem_fis].total_page[int_offset];
                             physical_adress = page_table[int_num_page].index_mem_fis * PAGE_SIZE + int_offset;
-                            printf("Virtual address: %d Physical address: %d Value: %d\n", virtual_adress, physical_adress, end_value);
+                            fprintf(fp_correct_txt,"Virtual address: %d Physical address: %d Value: %d\n", virtual_adress, physical_adress, end_value);
                             
                             
                             cont_page_fault++;
@@ -233,7 +234,7 @@ int main(int agrc, char *argv[]) {
                 //implemtentação sem tlb 
 
 
-                printf("fifo lru implementação sem tlb\n");
+                //printf("fifo lru implementação sem tlb\n");
 
 
 
@@ -241,7 +242,7 @@ int main(int agrc, char *argv[]) {
                 //procurar página na memoria fisica 
                 end_value = mem_fis[page_table[int_num_page].index_mem_fis].total_page[int_offset];
                 physical_adress = page_table[int_num_page].index_mem_fis * PAGE_SIZE + int_offset;
-                printf("Virtual address: %d Physical address: %d Value: %d\n", virtual_adress, physical_adress, end_value);
+                fprintf(fp_correct_txt,"Virtual address: %d Physical address: %d Value: %d\n", virtual_adress, physical_adress, end_value);
                 cont_non_page_fault++;
 
             } else {
@@ -259,7 +260,7 @@ int main(int agrc, char *argv[]) {
                     page_table[int_num_page].index_mem_fis = cont_mem_fis;
                     end_value = mem_fis[page_table[int_num_page].index_mem_fis].total_page[int_offset];
                     physical_adress = page_table[int_num_page].index_mem_fis * PAGE_SIZE + int_offset;
-                    printf("Virtual address: %d Physical address: %d Value: %d\n", virtual_adress, physical_adress, end_value);
+                    fprintf(fp_correct_txt,"Virtual address: %d Physical address: %d Value: %d\n", virtual_adress, physical_adress, end_value);
                     cont_page_fault++;
                     cont_mem_fis++;
                     fclose(fp_backstore);
@@ -284,7 +285,7 @@ int main(int agrc, char *argv[]) {
                     page_table[int_num_page].index_mem_fis = cont_mem_fis % FIS_MEM_SIZE;
                     end_value = mem_fis[page_table[int_num_page].index_mem_fis].total_page[int_offset];
                     physical_adress = page_table[int_num_page].index_mem_fis * PAGE_SIZE + int_offset;
-                    printf("Virtual address: %d Physical address: %d Value: %d\n", virtual_adress, physical_adress, end_value);
+                    fprintf(fp_correct_txt,"Virtual address: %d Physical address: %d Value: %d\n", virtual_adress, physical_adress, end_value);
                     cont_page_fault++;
                     cont_mem_fis++;
                     fclose(fp_backstore);
@@ -312,7 +313,7 @@ int main(int agrc, char *argv[]) {
                     //procurar na memoria
                     end_value = mem_fis[tlb[index_tlb].index_mem_fis].total_page[int_offset];
                     physical_adress = tlb[index_tlb].index_mem_fis * PAGE_SIZE + int_offset;
-                    printf("0 - Virtual address: %d Physical address: %d Value: %d\n", virtual_adress, physical_adress, end_value);
+                    fprintf(fp_correct_txt,"Virtual address: %d Physical address: %d Value: %d\n", virtual_adress, physical_adress, end_value);
                     // tem que zerar o time na page_table e reload dos 2
                     tlb[index_tlb].time = 0;
                     page_table[tlb[index_tlb].num_pag].time = 0;
@@ -328,7 +329,7 @@ int main(int agrc, char *argv[]) {
                         physical_adress = page_table[int_num_page].index_mem_fis * PAGE_SIZE + int_offset;
                         page_table[int_num_page].time = 0;
 
-                        printf("1 -\tVirtual address: %d Physical address: %d Value: %d\n", virtual_adress, physical_adress, end_value);
+                        fprintf(fp_correct_txt,"Virtual address: %d Physical address: %d Value: %d\n", virtual_adress, physical_adress, end_value);
                         //increment time
                         for (int i = 0; i < PAGE_TABLE_SIZE; i++) {
                             if (page_table[i].bit_sinal == 1)
@@ -362,7 +363,7 @@ int main(int agrc, char *argv[]) {
 
                             end_value = mem_fis[page_table[int_num_page].index_mem_fis].total_page[int_offset];
                             physical_adress = page_table[int_num_page].index_mem_fis * PAGE_SIZE + int_offset;
-                            printf("2 -\tVirtual address: %d Physical address: %d Value: %d\n", virtual_adress, physical_adress, end_value);
+                            fprintf(fp_correct_txt,"Virtual address: %d Physical address: %d Value: %d\n", virtual_adress, physical_adress, end_value);
                             //incrementando o tempo de todos os que estao na memoria fisica
                             for (int i = 0; i < PAGE_TABLE_SIZE; i++) {
                                 if (page_table[i].bit_sinal == 1)
@@ -420,7 +421,7 @@ int main(int agrc, char *argv[]) {
                             end_value = mem_fis[page_table[int_num_page].index_mem_fis].total_page[int_offset];
                             physical_adress = page_table[int_num_page].index_mem_fis * PAGE_SIZE + int_offset;
                             //printing results:
-                            printf("3 -\tVirtual address: %d Physical address: %d Value: %d\n", virtual_adress, physical_adress, end_value);
+                            fprintf(fp_correct_txt,"Virtual address: %d Physical address: %d Value: %d\n", virtual_adress, physical_adress, end_value);
 
                             //reloading counters and time
                             for (int i = 0; i < PAGE_TABLE_SIZE; i++) {
@@ -442,7 +443,7 @@ int main(int agrc, char *argv[]) {
             } else if (strcmp(algorithm_tlb, "lru") == 0) { // lru implementado sem a tlb 
                 
 
-                printf("lru lru implementação sem tlb\n");
+                //printf("lru lru implementação sem tlb\n");
                 
                 
                 if (page_table[int_num_page].bit_sinal == 1) {
@@ -452,7 +453,7 @@ int main(int agrc, char *argv[]) {
                     physical_adress = page_table[int_num_page].index_mem_fis * PAGE_SIZE + int_offset;
                     page_table[int_num_page].time = 0;
 
-                    printf("1 - OFFSET %d\tVirtual address: %d Physical address: %d Value: %d\n",int_offset, virtual_adress, physical_adress, end_value);
+                    fprintf(fp_correct_txt,"Virtual address: %d Physical address: %d Value: %d\n", virtual_adress, physical_adress, end_value);
                     //increment time
                     for (int i = 0; i < PAGE_TABLE_SIZE; i++) {
                         if (page_table[i].bit_sinal == 1)
@@ -478,7 +479,7 @@ int main(int agrc, char *argv[]) {
 
                         end_value = mem_fis[page_table[int_num_page].index_mem_fis].total_page[int_offset];
                         physical_adress = page_table[int_num_page].index_mem_fis * PAGE_SIZE + int_offset;
-                        printf("2 - OFFSET %d\tVirtual address: %d Physical address: %d Value: %d\n",int_offset, virtual_adress, physical_adress, end_value);
+                        fprintf(fp_correct_txt,"Virtual address: %d Physical address: %d Value: %d\n", virtual_adress, physical_adress, end_value);
                         //incrementando o tempo de todos os que estao na memoria fisica
                         for (int i = 0; i < PAGE_TABLE_SIZE; i++) {
                             if (page_table[i].bit_sinal == 1)
@@ -520,8 +521,6 @@ int main(int agrc, char *argv[]) {
                         }
 
 
-
-
                         //atualizando o novo:
                         page_table[int_num_page].bit_sinal = 1;
                         page_table[int_num_page].index_mem_fis = mem_fis_add;//using index_page_table_highiest_time take the fis_mem index;
@@ -530,7 +529,7 @@ int main(int agrc, char *argv[]) {
                         end_value = mem_fis[page_table[int_num_page].index_mem_fis].total_page[int_offset];
                         physical_adress = page_table[int_num_page].index_mem_fis * PAGE_SIZE + int_offset;
                         //printing results:
-                        printf("3 - OFFSET %d\tVirtual address: %d Physical address: %d Value: %d\n",int_offset, virtual_adress, physical_adress, end_value);
+                        fprintf(fp_correct_txt,"Virtual address: %d Physical address: %d Value: %d\n", virtual_adress, physical_adress, end_value);
 
                         //reloading counters and time
                         for (int i = 0; i < PAGE_TABLE_SIZE; i++) {
@@ -548,12 +547,13 @@ int main(int agrc, char *argv[]) {
 
 
     fclose(fp);
-    printf("Number of Translated Addresses = %d\n", cont_non_page_fault + cont_page_fault);
-    printf("Page Faults = %d\n", cont_page_fault);
-    printf("Page Fault Rate = %.3f\n", (float)cont_page_fault/(float)(cont_non_page_fault + cont_page_fault));
+    fprintf(fp_correct_txt,"Number of Translated Addresses = %d\n", cont_non_page_fault + cont_page_fault);
+    fprintf(fp_correct_txt,"Page Faults = %d\n", cont_page_fault);
+    fprintf(fp_correct_txt,"Page Fault Rate = %.3f\n", (float)cont_page_fault/(float)(cont_non_page_fault + cont_page_fault));
     if (strcmp(algorithm_tlb, "fifo") == 0) {
-        printf("TLB Hits = %d\n", tlb_hit);
-        printf("TLB Hits Rate = %.3f\n", tlb_hit/(float)(cont_non_page_fault + cont_page_fault));
+        fprintf(fp_correct_txt,"TLB Hits = %d\n", tlb_hit);
+        fprintf(fp_correct_txt,"TLB Hits Rate = %.3f\n", tlb_hit/(float)(cont_non_page_fault + cont_page_fault));
     }
+    fclose(fp_correct_txt);
     return 0;
 }
