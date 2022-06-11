@@ -13,8 +13,12 @@ $ cd virtual_memory_simulation<br />
 
 ## Como utilizar o programa:
 $ make<br />
+Apenas compila o arquivo main.c<br />
 $ ./vm addresses.txt algorithm1, algorithm2<br />
-nesse segundo comando, executa-se o arquivo compilado e 3 argumentos são passados:<br />
+Nesse segundo comando, executa-se o arquivo compilado e 3 argumentos são passados:<br />
 O addresses.txt - que é o arquivo texto que contem os endereços de cada instrução da memoria secundária<br />
 O algorithm1 - que é o tipo de algoritmo usado para atualizar a memória física(fifo ou lru)<br />
 O algorithm2 - que é o tipo de algoritmo usado para atualizar a tlb(fifo ou lru)<br />
+$ make clean<br />
+Comando para limpar da memória o arquivo objeto<br />
+
