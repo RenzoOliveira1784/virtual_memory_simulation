@@ -22,3 +22,14 @@ O algorithm2 - que é o tipo de algoritmo usado para atualizar a tlb(fifo ou lru
 $ make clean<br />
 Comando para limpar da memória o arquivo objeto<br />
 
+### Como saber se está funcionando:
+$ make test_fifofifo
+O resultado das últimas linhas do make test_fifofifo no arquivo correct.txt é<br />
+Virtual address: 45563 Physical address: 6395 Value: 126<br />
+Virtual address: 12107 Physical address: 6475 Value: -46<br />
+Number of Translated Addresses = 1000<br />
+Page Faults = 538<br />
+Page Fault Rate = 0.538<br />
+TLB Hits = 54<br />
+TLB Hits Rate = 0.054<br />
+
