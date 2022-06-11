@@ -10,3 +10,6 @@ run:
 
 clean: 
 	rm vm
+
+test_fifofifo
+	./vm addresses.txt fifo fifo
